@@ -32,15 +32,15 @@ public class Hotel  {
     
     @Setter
     @Column
-    private Address address;
+    private String address;
 
     @Setter
     @Column
-    private List<Number> avaliations;
+    private List<String> evaluations;
 
     @Setter
     @Column
-    private List<Room> availableRooms;
+    private List<String> availableRooms;
 
     @GeneratedValue
     @Id

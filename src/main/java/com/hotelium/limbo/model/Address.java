@@ -14,46 +14,46 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// @Getter
-// @AllArgsConstructor
-// @NoArgsConstructor
-// @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Address {
-    // @GeneratedValue
-    // @Id
-    // private Long id;
+    @GeneratedValue
+    @Id
+    private Long id;
 
-    // @Setter
-    // @Column
-    // private String street;
+    @Setter
+    @Column
+    private String street;
 
-    // @Setter
-    // @Column
-    // private Number number;
+    @Setter
+    @Column
+    private Number number;
 
-    // @Setter
-    // @Column
-    // private String neigborhood;
+    @Setter
+    @Column
+    private String neigborhood;
 
-    // @Setter
-    // @Column
-    // private String city;
+    @Setter
+    @Column
+    private String city;
 
-    // @Setter 
-    // @Column
-    // private String state;
+    @Setter 
+    @Column
+    private String state;
 
-    // @Column
-    // // @CreationTimestamp
-    // private Date createdAt;
+    @Column
+    @CreationTimestamp
+    private Date createdAt;
 
-    // @Column
-    // // @UpdateTimestamp
-    // private Date updatedAt;
+    @Column
+    @UpdateTimestamp
+    private Date updatedAt;
 
-    // @Column(name = "createdBy")
-    // private String createdBy = "Jessie";
+    @Column(name = "createdBy")
+    private String createdBy = "Jessie";
 
-    // @Column(name = "updatedBy")
-    // private String updatedBy = "Jessie";
+    @Column(name = "updatedBy")
+    private String updatedBy = "Jessie";
 }
