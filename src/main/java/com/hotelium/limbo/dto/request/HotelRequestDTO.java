@@ -1,0 +1,27 @@
+package com.hotelium.limbo.dto.request;
+
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class HotelRequestDTO {
+    @NotEmpty
+    @NotNull
+    private String name;
+
+    @NotEmpty
+    @NotNull
+    private String description;
+
+    @NotEmpty
+    @NotNull
+    private String address;
+}
