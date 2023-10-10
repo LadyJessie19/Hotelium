@@ -23,7 +23,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "Rooms")
 public class Room  {
-     
     @Setter
     @Column
     private Number roomNumber;
@@ -42,7 +41,7 @@ public class Room  {
 
     @Setter
     @Column
-    private String availability;
+    private Boolean availability;
 
     @GeneratedValue
     @Id
