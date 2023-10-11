@@ -25,7 +25,7 @@ import lombok.Setter;
 public class Room  {
     @Setter
     @Column
-    private Number roomNumber;
+    private int roomNumber;
 
     @Setter
     @Column
@@ -37,7 +37,7 @@ public class Room  {
 
     @Setter
     @Column
-    private String coastHour;
+    private int coastHour;
 
     @Setter
     @Column
