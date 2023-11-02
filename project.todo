@@ -1,0 +1,54 @@
+Modeling:
+    ☐ Relation User 1:n Booking;
+    ☐ Relation Booking 1:1 Room;
+    ☐ Relation Room n:1 Hotel;
+
+CRUDS:
+    User:
+        ☐ Controller;
+        ☐ Service;
+        ☐ Repository;
+        ☐ Mapper;
+    Booking:
+        ☐ Controller;
+        ☐ Service;
+        ☐ Repository;
+        ☐ Mapper;
+    Room:
+        ☐ Controller;
+        ☐ Service;
+        ☐ Repository;
+        ☐ Mapper;
+    Hotel:
+        ☐ Controller;
+        ☐ Service;
+        ☐ Repository;
+        ☐ Mapper;
+
+Project Main Features:
+    ☐ Search Hotels; - [Hotel]
+    ☐ Check Hotel details; - [Hotel]
+    ☐ Make a reservation - [Booking, Hotel]
+    ☐ Check user reservations - [User, Booking]
+
+Master Feature!:
+    ☐ Room availability
+
+Features:
+    Auth:
+        ☐ Login user - email and password; [User]
+        ☐ user auth; [User]
+    Hotel Search:
+        ☐ Filter Hotels - neighborhood | check_in | check_out | Rooms; [Hotels, Rooms]
+    Hotel Info:
+        ☐ Info about hotel; [Hotels]
+    Booking:
+        ☐ How many rooms? [Booking, Rooms]
+        ☐ Payment info; [Booking]
+        ☐ Unique code to reservation; [Booking]
+    User:
+        ☐ Booking history; [User, Booking]
+        ☐ Deadline for cancellation; [User, Booking]
+
+My To Do:
+    ✔ Implementar o Spring Security; @done(23-11-01 22:50)

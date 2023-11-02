@@ -11,3 +11,19 @@ public class LimboApplication {
 		SpringApplication.run(LimboApplication.class, args);
 	}
 }
+
+/*
+ * Mentoria de Java - 13/10
+ * 
+ * @ManyToOne(fetch = FetchType.LAZY)
+ * 
+ * @JoinColumn(name = "hotel_id")
+ * private Hotel hotel;
+ * 
+ * Entidade Hotel:
+ * 
+ * @OneToMany(mappedBy = "hotel")
+ * 
+ * @NotExportable
+ * private Collection<Quarto> quartos = new ArrayList<>();
+ */
