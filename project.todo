@@ -1,29 +1,29 @@
 Modeling:
-    ☐ Relation User 1:n Booking;
-    ☐ Relation Booking 1:1 Room;
-    ☐ Relation Room n:1 Hotel;
+    ✔ Relation User 1:n Booking; @done(23-11-06 22:58)
+    ✔ Relation Booking 1:1 Room; @done(23-11-06 23:52)
+    ✔ Relation Hotel n:1 Room; @done(23-11-06 23:58)
 
 CRUDS:
     User:
-        ☐ Controller;
-        ☐ Service;
-        ☐ Repository;
-        ☐ Mapper;
+        ✔ Controller; @done(23-11-06 23:59)
+        ✔ Service; @done(23-11-06 23:59)
+        ✔ Repository; @done(23-11-06 23:59)
+        ✔ Mapper; @done(23-11-06 23:59)
     Booking:
-        ☐ Controller;
-        ☐ Service;
-        ☐ Repository;
-        ☐ Mapper;
+        ✔ Controller; @done(23-11-06 23:59)
+        ✔ Service; @done(23-11-06 23:59)
+        ✔ Repository; @done(23-11-06 23:59)
+        ✔ Mapper; @done(23-11-06 23:59)
     Room:
-        ☐ Controller;
-        ☐ Service;
-        ☐ Repository;
-        ☐ Mapper;
+        ✔ Controller; @done(23-11-06 23:59)
+        ✔ Service; @done(23-11-06 23:59)
+        ✔ Repository; @done(23-11-06 23:59)
+        ✔ Mapper; @done(23-11-06 23:59)
     Hotel:
-        ☐ Controller;
-        ☐ Service;
-        ☐ Repository;
-        ☐ Mapper;
+        ✔ Controller; @done(23-11-06 23:59)
+        ✔ Service; @done(23-11-06 23:59)
+        ✔ Repository; @done(23-11-06 23:59)
+        ✔ Mapper; @done(23-11-06 23:59)
 
 Project Main Features:
     ☐ Search Hotels; - [Hotel]
@@ -52,3 +52,4 @@ Features:
 
 My To Do:
     ✔ Implementar o Spring Security; @done(23-11-01 22:50)
+    ✔ Relacionar tabelas! @done(23-11-07 00:00)

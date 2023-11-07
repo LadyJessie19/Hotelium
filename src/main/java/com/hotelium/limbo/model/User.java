@@ -1,14 +1,18 @@
 package com.hotelium.limbo.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +36,15 @@ public class User {
 
     @Setter
     @Column
+    private String login;
+
+    @Setter
+    @Column
     private String password;
+
+    @Setter
+    @Column
+    private List<String> profiles;
 
     @GeneratedValue
     @Id
@@ -51,4 +63,7 @@ public class User {
 
     @Column(name = "updatedBy")
     private String updatedBy = "Jessie";
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings = new ArrayList<>();
 }
