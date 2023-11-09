@@ -1,6 +1,7 @@
 package com.hotelium.limbo.dto.request;
 
 import com.hotelium.limbo.enums.RoomTypeEnum;
+import com.hotelium.limbo.model.Hotel;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -25,4 +26,8 @@ public class RoomRequestDTO {
     @NotEmpty
     @NotNull
     private Boolean availability;
+
+    @NotEmpty
+    @NotNull
+    private Hotel hotel;
 }

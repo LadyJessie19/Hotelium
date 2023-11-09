@@ -44,7 +44,7 @@ public class User {
 
     @Setter
     @Column
-    private List<String> profiles;
+    private String profile;
 
     @GeneratedValue
     @Id

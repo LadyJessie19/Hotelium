@@ -1,5 +1,7 @@
 package com.hotelium.limbo.dto.request;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,9 +21,17 @@ public class UserRequestDTO {
 
     @NotEmpty
     @NotNull
+    private String login;
+
+    @NotEmpty
+    @NotNull
     private String email;
 
     @NotEmpty
     @NotNull
     private String password;
+
+    @NotEmpty
+    @NotNull
+    private String profile;
 }

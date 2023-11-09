@@ -25,6 +25,9 @@ CRUDS:
         ✔ Repository; @done(23-11-06 23:59)
         ✔ Mapper; @done(23-11-06 23:59)
 
+    LAST ERROR:
+        ☐ 2023-11-08T21:39:50.475-03:00  WARN 6284 --- [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'application/octet-stream' is not supported]
+
 Project Main Features:
     ☐ Search Hotels; - [Hotel]
     ☐ Check Hotel details; - [Hotel]

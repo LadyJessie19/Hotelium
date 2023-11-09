@@ -36,14 +36,6 @@ public class Hotel {
     @Column
     private String address;
 
-    @Setter
-    @Column
-    private List<String> evaluations;
-
-    @Setter
-    @Column
-    private List<String> availableRooms;
-
     @GeneratedValue
     @Id
     private Long id;
