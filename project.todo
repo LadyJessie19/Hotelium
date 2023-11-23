@@ -26,7 +26,13 @@ CRUDS:
         ✔ Mapper; @done(23-11-06 23:59)
 
     LAST ERROR:
-        ☐ 2023-11-08T21:39:50.475-03:00  WARN 6284 --- [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'application/octet-stream' is not supported]
+        ✔ 2023-11-08T21:39:50.475-03:00  WARN 6284 --- [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'application/octet-stream' is not supported] @done(23-11-22 00:26)
+    
+    CREATING ROOM SAGA:
+        ☐ First: RoomDTO - hotel attribute;
+        ☐ Second: Hotel Model - all;
+        ☐ Third: Room Model - all too;
+        ☐ Fourth: Room Service is rotten!!! Fix it!
 
 Project Main Features:
     ☐ Search Hotels; - [Hotel]

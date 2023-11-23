@@ -1,7 +1,8 @@
 package com.hotelium.limbo.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,11 +27,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Rooms")
-public class Room {
+@Table(name = "rooms")
+public class Room implements Serializable {
     @Setter
     @Column
-    private int roomNumber;
+    private Long roomNumber;
 
     @Setter
     @Column
@@ -42,7 +43,7 @@ public class Room {
 
     @Setter
     @Column
-    private int coastHour;
+    private Long coastHour;
 
     @Setter
     @Column
@@ -66,10 +67,11 @@ public class Room {
     @Column(name = "updatedBy")
     private String updatedBy = "Jessie";
 
-    @ManyToOne
+    @Setter
+    @ManyToOne()
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
     @ManyToMany(mappedBy = "rooms")
-    private Set<Booking> bookings = new HashSet<>();
+    private Set<Booking> bookings = new LinkedHashSet<>();
 }

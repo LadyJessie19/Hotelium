@@ -1,5 +1,6 @@
 package com.hotelium.limbo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "hotels")
-public class Hotel {
+public class Hotel implements Serializable {
     @Setter
     @Column
     private String name;
@@ -54,6 +55,21 @@ public class Hotel {
     @Column(name = "updatedBy")
     private String updatedBy = "Jessie";
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel")
     private List<Room> rooms;
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", id=" + id +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", rooms=" + rooms +
+                '}';
+    }
 }

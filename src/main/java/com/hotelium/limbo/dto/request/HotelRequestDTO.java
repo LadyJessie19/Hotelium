@@ -1,5 +1,9 @@
 package com.hotelium.limbo.dto.request;
 
+import java.util.List;
+
+import com.hotelium.limbo.model.Room;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,4 +28,6 @@ public class HotelRequestDTO {
     @NotEmpty
     @NotNull
     private String address;
+
+    private List<Room> rooms;
 }

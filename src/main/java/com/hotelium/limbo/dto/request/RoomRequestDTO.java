@@ -5,7 +5,15 @@ import com.hotelium.limbo.model.Hotel;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoomRequestDTO {
     @NotEmpty
     @NotNull
@@ -21,7 +29,7 @@ public class RoomRequestDTO {
 
     @NotEmpty
     @NotNull
-    private String coastHour;
+    private Long coastHour;
 
     @NotEmpty
     @NotNull
@@ -30,4 +38,16 @@ public class RoomRequestDTO {
     @NotEmpty
     @NotNull
     private Hotel hotel;
+
+    @Override
+    public String toString() {
+        return "RoomRequestDTO{" +
+                "roomNumber=" + roomNumber +
+                ", description='" + description + '\'' +
+                ", roomType=" + roomType +
+                ", costHour=" + coastHour +
+                ", availability=" + availability +
+                ", hotel=" + hotel +
+                '}';
+    }
 }
