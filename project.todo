@@ -35,7 +35,11 @@ CRUDS:
         ✔ Fourth: Room Service is rotten!!! Fix it! @done(23-11-23 22:22)
 
     CREATING BOOKING SAGA:
-        ☐ Create a new booking;
+        ✔ Create a new booking; @done(23-11-23 23:50)
+        ☐ The userId and RoomIds are null. buaaaaaaa!
+
+The To Do:
+    ☐ Fix the User creation - set profile as 'user'
 
 Project Main Features:
     ☐ Search Hotels; - [Hotel]

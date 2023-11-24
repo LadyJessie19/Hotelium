@@ -70,7 +70,7 @@ public class Booking {
 
     @Setter
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    // @JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "booking_rooms", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))
     private Set<Room> rooms = new HashSet<>();
