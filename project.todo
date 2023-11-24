@@ -29,10 +29,13 @@ CRUDS:
         ✔ 2023-11-08T21:39:50.475-03:00  WARN 6284 --- [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content-Type 'application/octet-stream' is not supported] @done(23-11-22 00:26)
     
     CREATING ROOM SAGA:
-        ☐ First: RoomDTO - hotel attribute;
-        ☐ Second: Hotel Model - all;
-        ☐ Third: Room Model - all too;
-        ☐ Fourth: Room Service is rotten!!! Fix it!
+        ✔ First: RoomDTO - hotel attribute; @done(23-11-23 22:22)
+        ✔ Second: Hotel Model - all; @done(23-11-23 22:22)
+        ✔ Third: Room Model - all too; @done(23-11-23 22:22)
+        ✔ Fourth: Room Service is rotten!!! Fix it! @done(23-11-23 22:22)
+
+    CREATING BOOKING SAGA:
+        ☐ Create a new booking;
 
 Project Main Features:
     ☐ Search Hotels; - [Hotel]
@@ -58,6 +61,9 @@ Features:
     User:
         ☐ Booking history; [User, Booking]
         ☐ Deadline for cancellation; [User, Booking]
+    
+SPRING SECURITY:
+    ☐ Conseguir o spring security;
 
 My To Do:
     ✔ Implementar o Spring Security; @done(23-11-01 22:50)
