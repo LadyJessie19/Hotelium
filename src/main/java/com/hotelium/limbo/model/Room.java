@@ -8,11 +8,16 @@ import java.util.Set;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hotelium.limbo.enums.RoomTypeEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -29,6 +34,10 @@ import lombok.Setter;
 @Entity
 @Table(name = "rooms")
 public class Room implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Setter
     @Column
     private Long roomNumber;
@@ -39,6 +48,7 @@ public class Room implements Serializable {
 
     @Setter
     @Column
+    @Enumerated(EnumType.STRING)
     private RoomTypeEnum roomType;
 
     @Setter
@@ -49,16 +59,12 @@ public class Room implements Serializable {
     @Column
     private Boolean availability;
 
-    @GeneratedValue
-    @Id
-    private Long id;
-
-    @Column
     @CreationTimestamp
+    @Column
     private Date createdAt;
 
-    @Column
     @UpdateTimestamp
+    @Column
     private Date updatedAt;
 
     @Column(name = "createdBy")
@@ -68,8 +74,9 @@ public class Room implements Serializable {
     private String updatedBy = "Jessie";
 
     @Setter
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel_id")
+    @JsonBackReference
     private Hotel hotel;
 
     @ManyToMany(mappedBy = "rooms")

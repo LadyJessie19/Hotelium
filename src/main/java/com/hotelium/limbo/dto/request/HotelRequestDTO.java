@@ -28,6 +28,4 @@ public class HotelRequestDTO {
     @NotEmpty
     @NotNull
     private String address;
-
-    private List<Room> rooms;
 }

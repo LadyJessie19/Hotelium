@@ -35,10 +35,6 @@ public class RoomRequestDTO {
     @NotNull
     private Boolean availability;
 
-    @NotEmpty
-    @NotNull
-    private Hotel hotel;
-
     @Override
     public String toString() {
         return "RoomRequestDTO{" +
@@ -47,7 +43,6 @@ public class RoomRequestDTO {
                 ", roomType=" + roomType +
                 ", costHour=" + coastHour +
                 ", availability=" + availability +
-                ", hotel=" + hotel +
                 '}';
     }
 }
