@@ -2,13 +2,16 @@ package com.hotelium.limbo.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.hotelium.limbo.enums.RoomTypeEnum;
 
 import jakarta.persistence.CascadeType;
@@ -79,6 +82,22 @@ public class Room implements Serializable {
     @JsonBackReference
     private Hotel hotel;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    // @JsonIdentityReference(alwaysAsId = true)
     @ManyToMany(mappedBy = "rooms")
-    private Set<Booking> bookings = new LinkedHashSet<>();
+    private Set<Booking> bookings = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", roomNumber=" + roomNumber +
+                ", description='" + description + '\'' +
+                ", roomType=" + roomType +
+                ", costHour=" + coastHour +
+                ", availability=" + availability +
+                ", hotel=" + hotel +
+                ", bookings=" + bookings +
+                '}';
+    }
 }
