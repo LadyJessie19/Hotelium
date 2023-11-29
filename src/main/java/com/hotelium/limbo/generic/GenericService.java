@@ -2,6 +2,7 @@ package com.hotelium.limbo.generic;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -13,7 +14,8 @@ public class GenericService<T, ID, D> {
     private final Class<T> EntityType;
     private final Class<D> DTOtype;
 
-    public GenericService(JpaRepository<T, ID> repository, GenericMapper<T, D> mapper, Class<T> EntityType, Class<D> DTOtype) {
+    public GenericService(JpaRepository<T, ID> repository, GenericMapper<T, D> mapper, Class<T> EntityType,
+            Class<D> DTOtype) {
         this.repository = repository;
         this.mapper = mapper;
         this.EntityType = EntityType;
@@ -92,7 +94,11 @@ public class GenericService<T, ID, D> {
      */
 
     public void delete(ID id) {
-        repository.deleteById(id);
-        return;
+        Optional<T> entity = repository.findById(id);
+        if (entity.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException(EntityType.getSimpleName() + " not found with id " + id);
+        }
     }
 }

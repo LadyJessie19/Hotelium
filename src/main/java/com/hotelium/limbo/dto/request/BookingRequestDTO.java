@@ -1,7 +1,7 @@
 package com.hotelium.limbo.dto.request;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -35,7 +35,7 @@ public class BookingRequestDTO {
     @JsonProperty("roomIds")
     @NotNull
     @NotEmpty
-    private Set<Long> roomIds;
+    private List<Long> roomIds;
 
     @Override
     public String toString() {

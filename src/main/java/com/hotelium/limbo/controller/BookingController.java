@@ -1,7 +1,7 @@
 package com.hotelium.limbo.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.hotelium.limbo.dto.request.BookingRequestDTO;
 import com.hotelium.limbo.generic.GenericController;
@@ -13,5 +13,19 @@ import com.hotelium.limbo.service.BookingService;
 public class BookingController extends GenericController<Booking, Long, BookingRequestDTO> {
     public BookingController(BookingService service) {
         super(service);
+    }
+
+    @Autowired
+    private BookingService service;
+
+    @PostMapping("/user/{userId}")
+    public Booking createBooking(@PathVariable Long userId, @RequestBody BookingRequestDTO bookingDTO) {
+        return service.createBookingTwo(userId, bookingDTO);
+    }
+
+    @DeleteMapping("/cancel/{id}")
+    public String deleteBooking(@PathVariable Long id) {
+        service.deleteBooking(id);
+        return "The booking was successfully canceled!";
     }
 }

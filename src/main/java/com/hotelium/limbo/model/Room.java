@@ -77,14 +77,14 @@ public class Room implements Serializable {
     private String updatedBy = "Jessie";
 
     @Setter
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "hotel_id")
     @JsonBackReference
     private Hotel hotel;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     // @JsonIdentityReference(alwaysAsId = true)
-    @ManyToMany(mappedBy = "rooms")
+    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.ALL)
     private Set<Booking> bookings = new HashSet<>();
 
     @Override

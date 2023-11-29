@@ -36,10 +36,15 @@ CRUDS:
 
     CREATING BOOKING SAGA:
         ✔ Create a new booking; @done(23-11-23 23:50)
-        ☐ The userId and RoomIds are null. buaaaaaaa!
+        ✔ The userId and RoomIds are null. buaaaaaaa! @done(23-11-28 22:12)
 
 The To Do:
-    ☐ Fix the User creation - set profile as 'user'
+    ✔ Fix the User creation - set profile as 'user' @done(23-11-28 22:12)
+
+    ---------------- Project 1/3 is done! ----------------
+Next steps:
+    ☐ Spring Security;
+    ☐ Project features bellow;
 
 Project Main Features:
     ☐ Search Hotels; - [Hotel]

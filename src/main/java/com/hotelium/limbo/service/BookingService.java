@@ -1,7 +1,8 @@
 package com.hotelium.limbo.service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import com.hotelium.limbo.model.User;
 import com.hotelium.limbo.repository.BookingRepository;
 import com.hotelium.limbo.repository.RoomRepository;
 import com.hotelium.limbo.repository.UserRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.hotelium.limbo.mapper.BookingMapper;
 
 @Service
@@ -42,7 +46,7 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
             throw new RuntimeException("User not found with id: " + bookingDTO.getUserId());
         }
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         for (Long roomId : bookingDTO.getRoomIds()) {
             Room room = roomRepository.findById(roomId)
                     .orElse(null);
@@ -84,4 +88,42 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
             throw new IllegalArgumentException("At least one room must be specified");
         }
     }
+
+    public Booking createBookingTwo(Long userId, BookingRequestDTO bookingDto) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            Booking booking = new Booking();
+            booking.setUser(user.get());
+            booking.setCheckIn(bookingDto.getCheckIn());
+            booking.setCheckOut(bookingDto.getCheckOut());
+
+            List<Room> rooms = roomRepository.findAllById(bookingDto.getRoomIds());
+            booking.setRooms(rooms.stream().toList());
+
+            return bookingRepository.saveAndFlush(booking);
+
+        } else {
+            throw new EntityNotFoundException("User not found");
+        }
+    }
+
+    public void deleteBooking(Long id) {
+        Optional<Booking> booking = bookingRepository.findById(id);
+        if (booking.isPresent()) {
+            User user = booking.get().getUser();
+            user.getBookings().remove(booking.get());
+            userRepository.save(user);
+
+            List<Room> rooms = booking.get().getRooms();
+            for (Room room : rooms) {
+                room.getBookings().remove(booking.get());
+                roomRepository.save(room);
+            }
+            bookingRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Booking not found with id " + id);
+        }
+    }
+
 }
