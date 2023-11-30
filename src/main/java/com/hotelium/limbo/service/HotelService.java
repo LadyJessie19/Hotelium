@@ -1,5 +1,6 @@
 package com.hotelium.limbo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class HotelService extends GenericService<Hotel, Long, HotelRequestDTO> {
     @Autowired
     private HotelRepository repository;
 
-    public List<Hotel> findAll(String search) {
-        return repository.findByName(search);
+    public List<Hotel> findHotels(String name, String destination) {
+        return repository.findHotels(name, destination);
     }
 }

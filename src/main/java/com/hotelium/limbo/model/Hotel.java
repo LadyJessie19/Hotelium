@@ -46,6 +46,14 @@ public class Hotel implements Serializable {
     @Column
     private String address;
 
+    @Setter
+    @Column
+    private Integer numberOfRooms;
+
+    @Setter
+    @Column
+    private Integer numberOfGuests;
+
     @CreationTimestamp
     @Column
     private Date createdAt;
@@ -70,6 +78,8 @@ public class Hotel implements Serializable {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
+                ", numberOfRooms='" + numberOfRooms + '\'' +
+                ", numberOfGuests='" + numberOfGuests + '\'' +
                 ", id=" + id +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
