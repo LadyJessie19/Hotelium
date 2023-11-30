@@ -3,6 +3,7 @@ package com.hotelium.limbo.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,6 +24,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +41,17 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+
+    @Column
+    private String uniqueCode;
+
+    @Setter
+    @Column
+    private String creditCard;
+
+    @Setter
+    @Column
+    private Boolean isCanceled = false;
 
     @Setter
     @Column
@@ -74,4 +87,9 @@ public class Booking {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "booking_rooms", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))
     private List<Room> rooms = new ArrayList<>();
+
+    @PrePersist
+    public void generateUniqueCode() {
+        this.uniqueCode = UUID.randomUUID().toString();
+    }
 }

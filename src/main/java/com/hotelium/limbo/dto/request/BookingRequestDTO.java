@@ -19,6 +19,11 @@ import lombok.Setter;
 public class BookingRequestDTO {
     @NotNull
     @NotEmpty
+    @JsonProperty("creditCard")
+    private String creditCard;
+
+    @NotNull
+    @NotEmpty
     @JsonProperty("checkIn")
     private Date checkIn;
 
@@ -40,6 +45,7 @@ public class BookingRequestDTO {
     @Override
     public String toString() {
         return "BookingDTO{" +
+                "creditCard=" + creditCard +
                 "checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", userId=" + userId +

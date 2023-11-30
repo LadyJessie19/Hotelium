@@ -95,6 +95,7 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
         if (user.isPresent()) {
             Booking booking = new Booking();
             booking.setUser(user.get());
+            booking.setCreditCard(bookingDto.getCreditCard());
             booking.setCheckIn(bookingDto.getCheckIn());
             booking.setCheckOut(bookingDto.getCheckOut());
 
@@ -126,4 +127,22 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
         }
     }
 
+    public void cancelBooking(Long id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Booking not found with id " + id));
+
+        if (booking == null) {
+            throw new EntityNotFoundException("Booking not found with id " + id);
+        }
+        booking.setIsCanceled(true);
+        bookingRepository.save(booking);
+    }
+
+    public List<Booking> findBookingsByUserAndStatus(Long userId, Boolean isCanceled) {
+        if (isCanceled == null) {
+            return bookingRepository.findByUserId(userId);
+        } else {
+            return bookingRepository.findByUserIdAndIsCanceled(userId, isCanceled);
+        }
+    }
 }
