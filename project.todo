@@ -41,39 +41,50 @@ CRUDS:
 The To Do:
     ✔ Fix the User creation - set profile as 'user' @done(23-11-28 22:12)
 
-    ---------------- Project 1/3 is done! ----------------
-Next steps:
-    ☐ Spring Security;
-    ☐ Project features bellow;
+My To Do:
+    ✔ Relacionar tabelas! @done(23-11-07 00:00)
+
+    ---------------- Project 1/4 is done! ----------------
 
 Project Main Features:
-    ☐ Search Hotels; - [Hotel]
-    ☐ Check Hotel details; - [Hotel]
-    ☐ Make a reservation - [Booking, Hotel]
-    ☐ Check user reservations - [User, Booking]
+    ✔ Search Hotels; - [Hotel] @done(23-11-30 00:26)
+        ✔ Add toLowerCase(); @done(23-11-30 00:26)
 
-Master Feature!:
-    ☐ Room availability
+    ✔ Check Hotel details; - [Hotel] @done(23-11-30 00:28)
+    ✔ Make a reservation - [Booking, Hotel] @done(23-11-30 00:29)
+    ✔ Check user reservations - [User, Booking] @done(23-11-30 00:29)
 
 Features:
-    Auth:
-        ☐ Login user - email and password; [User]
-        ☐ user auth; [User]
     Hotel Search:
-        ☐ Filter Hotels - neighborhood | check_in | check_out | Rooms; [Hotels, Rooms]
+        ✔ Filter Hotels - neighborhood | check_in | check_out | Rooms; [Hotels, Rooms] @done(23-11-30 00:29)
     Hotel Info:
-        ☐ Info about hotel; [Hotels]
+        ✔ Info about hotel; [Hotels] @done(23-11-30 00:29)
     Booking:
-        ☐ How many rooms? [Booking, Rooms]
-        ☐ Payment info; [Booking]
-        ☐ Unique code to reservation; [Booking]
+        ✔ How many rooms? [Booking, Rooms] @done(23-11-30 00:29)
+        ✔ Payment info; [Booking] @done(23-11-30 00:37)
+        ✔ Unique code to reservation; [Booking] @done(23-11-30 00:43)
     User:
-        ☐ Booking history; [User, Booking]
-        ☐ Deadline for cancellation; [User, Booking]
-    
-SPRING SECURITY:
-    ☐ Conseguir o spring security;
+        ✔ Booking history; [User, Booking] @done(23-11-30 01:00)
+            ✔ Add attribute isCanceled to entity; @done(23-11-30 00:47)
+            ✔ In GetUserById return all the resevations[isCanceled = true | false]; @done(23-11-30 01:37)
 
-My To Do:
-    ✔ Implementar o Spring Security; @done(23-11-01 22:50)
-    ✔ Relacionar tabelas! @done(23-11-07 00:00)
+    ---------------- Project 2/4 is done! ----------------
+
+Next steps:
+    ---------------- Project 3/4 is doing! ----------------
+    Spring Security:
+        ☐ Spring Security - User login - Auth;
+    
+    ---------------- Project 4/4 ----------------
+    User:
+        ☐ Deadline for cancellation; [User, Booking]
+        ☐ Decorator currentUserLogged?
+            
+    Room:
+        ☐ Room Availability;
+        note -> O sistema deve retornar uma lista de hotéis disponíveis com base nos critérios de pesquisa
+        ☐ Search By Availability;
+
+    Hotel:
+        ☐ Search Hotels;
+        note -> I'm only allowing search by Hotel name and address, at least by now...
