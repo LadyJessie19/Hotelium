@@ -1,6 +1,7 @@
 package com.hotelium.limbo.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,37 +37,6 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
     @Autowired
     private RoomRepository roomRepository;
 
-    public void createBooking(BookingRequestDTO bookingDTO) {
-        this.validateBookingDTO(bookingDTO);
-
-        User user = userRepository.findById(bookingDTO.getUserId())
-                .orElse(null);
-
-        if (user == null) {
-            throw new RuntimeException("User not found with id: " + bookingDTO.getUserId());
-        }
-
-        List<Room> rooms = new ArrayList<>();
-        for (Long roomId : bookingDTO.getRoomIds()) {
-            Room room = roomRepository.findById(roomId)
-                    .orElse(null);
-
-            if (room == null) {
-                throw new RuntimeException("Room not found with id: " + roomId);
-            }
-
-            rooms.add(room);
-        }
-
-        Booking booking = new Booking();
-        booking.setCheckIn(bookingDTO.getCheckIn());
-        booking.setCheckOut(bookingDTO.getCheckOut());
-        booking.setUser(user);
-        booking.setRooms(rooms);
-
-        bookingRepository.save(booking);
-    }
-
     private void validateBookingDTO(BookingRequestDTO bookingDTO) {
         if (bookingDTO == null) {
             throw new IllegalArgumentException("BookingDTO cannot be null");
@@ -90,6 +60,9 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
     }
 
     public Booking createBookingTwo(Long userId, BookingRequestDTO bookingDto) {
+
+        this.validateBookingDTO(bookingDto);
+
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isPresent()) {
@@ -99,8 +72,18 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
             booking.setCheckIn(bookingDto.getCheckIn());
             booking.setCheckOut(bookingDto.getCheckOut());
 
-            List<Room> rooms = roomRepository.findAllById(bookingDto.getRoomIds());
-            booking.setRooms(rooms.stream().toList());
+            List<Room> rooms = new ArrayList<>();
+            for (Long roomId : bookingDto.getRoomIds()) {
+                int activeBookings = roomRepository.countActiveBookingsForRoom(roomId, bookingDto.getCheckIn(),
+                        bookingDto.getCheckOut());
+                if (activeBookings > 0) {
+                    throw new RuntimeException("Room " + roomId + " is not available for the selected dates");
+                }
+                Room room = roomRepository.findById(roomId)
+                        .orElseThrow(() -> new EntityNotFoundException("Room not found with id " + roomId));
+                rooms.add(room);
+            }
+            booking.setRooms(rooms);
 
             return bookingRepository.saveAndFlush(booking);
 
@@ -134,6 +117,15 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
         if (booking == null) {
             throw new EntityNotFoundException("Booking not found with id " + id);
         }
+
+        if (booking.getIsCanceled()) {
+            throw new RuntimeException("Booking is already canceled.");
+        }
+
+        if (new Date().after(booking.getDeadline())) {
+            throw new IllegalStateException("Cannot cancel booking after the deadline!");
+        }
+
         booking.setIsCanceled(true);
         bookingRepository.save(booking);
     }

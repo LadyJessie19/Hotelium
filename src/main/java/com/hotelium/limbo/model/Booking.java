@@ -1,6 +1,7 @@
 package com.hotelium.limbo.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -62,6 +63,9 @@ public class Booking {
     private Date checkOut;
 
     @Column
+    private Date deadline;
+
+    @Column
     @CreationTimestamp
     private Date createdAt;
 
@@ -88,8 +92,21 @@ public class Booking {
     @JoinTable(name = "booking_rooms", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))
     private List<Room> rooms = new ArrayList<>();
 
-    @PrePersist
-    public void generateUniqueCode() {
+    private void calculateDeadline() {
+        Calendar forewardDate = Calendar.getInstance();
+        forewardDate.setTime(this.createdAt);
+        forewardDate.add(Calendar.DATE, 7);
+        this.deadline = forewardDate.getTime();
+    }
+
+    private void generateUniqueCode() {
         this.uniqueCode = UUID.randomUUID().toString();
+    }
+
+    @PrePersist
+    public void beforePersist() {
+        this.createdAt = new Date();
+        this.calculateDeadline();
+        this.generateUniqueCode();
     }
 }
