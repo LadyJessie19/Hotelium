@@ -1,5 +1,6 @@
 package com.hotelium.limbo.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -57,5 +58,10 @@ public class RoomService extends GenericService<Room, Long, RoomRequestDTO> {
         } else {
             throw new EntityNotFoundException("Room not found with id " + id);
         }
+    }
+
+    public boolean isRoomAvailable(Long roomId, Date checkIn, Date checkOut) {
+        int activeBookings = repository.countActiveBookingsForRoom(roomId, checkIn, checkOut);
+        return activeBookings == 0;
     }
 }

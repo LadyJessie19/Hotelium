@@ -1,6 +1,9 @@
 package com.hotelium.limbo.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hotelium.limbo.dto.request.RoomRequestDTO;
@@ -36,5 +40,12 @@ public class RoomController extends GenericController<Room, Long, RoomRequestDTO
     public ResponseEntity<String> deleteRoom(@PathVariable Long id) {
         service.deleteRoom(id);
         return new ResponseEntity<>("Room deleted successfully", HttpStatus.OK);
+    }
+
+    @GetMapping("/availability/{id}")
+    public boolean checkAvailability(@PathVariable Long id,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkIn,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkOut) {
+        return service.isRoomAvailable(id, checkIn, checkOut);
     }
 }
