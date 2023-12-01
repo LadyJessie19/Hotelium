@@ -71,20 +71,21 @@ Features:
     ---------------- Project 2/4 is done! ----------------
 
 Next steps:
-    ---------------- Project 3/4 is doing! ----------------
-    Spring Security:
-        ☐ Spring Security - User login - Auth;
     
-    ---------------- Project 4/4 ----------------
     User:
-        ☐ Deadline for cancellation; [User, Booking]
-        ☐ Decorator currentUserLogged?
+        ✔ Deadline for cancellation; [User, Booking] @done(23-11-30 23:19)
+        ✔ Decorator currentUserLogged? @done(23-11-30 23:24)
             
     Room:
-        ☐ Room Availability;
+        ✔ Room Availability; @done(23-11-30 22:52)
         note -> O sistema deve retornar uma lista de hotéis disponíveis com base nos critérios de pesquisa
-        ☐ Search By Availability;
+        ✔ Search By Availability; @done(23-11-30 23:00)
 
     Hotel:
-        ☐ Search Hotels;
+        ✔ Search Hotels; @done(23-11-30 23:06)
         note -> I'm only allowing search by Hotel name and address, at least by now...
+    
+    ---------------- Project 3/4 is done! ----------------
+
+    Spring Security:
+        ☐ Spring Security - User login - Auth;
