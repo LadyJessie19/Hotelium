@@ -89,3 +89,8 @@ Next steps:
 
     Spring Security:
         ☐ Spring Security - User login - Auth;
+    
+    Swagger Docs:
+        API documentation: 
+            ✔ Add to controllers Tag annotation; @done(24-03-22 17:45)
+            ☐ Describe each endpoint;

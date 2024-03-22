@@ -4,11 +4,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
-@RequestMapping(path = "/test")
-public class TestController {
+@RequestMapping(path = "/health")
+@Tag(name = "Health", description = "Health Check")
+public class HealthController {
     @GetMapping()
-    public String testController(){
+    public String health() {
         return "THE DATABASE REQUESTS ARE OK. NOICE JOB TO YOU!";
     }
 }

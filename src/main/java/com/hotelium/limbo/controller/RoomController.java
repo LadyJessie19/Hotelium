@@ -20,8 +20,11 @@ import com.hotelium.limbo.generic.GenericController;
 import com.hotelium.limbo.model.Room;
 import com.hotelium.limbo.service.RoomService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "/rooms")
+@Tag(name = "Rooms", description = "Room management endpoints")
 public class RoomController extends GenericController<Room, Long, RoomRequestDTO> {
     public RoomController(RoomService service) {
         super(service);

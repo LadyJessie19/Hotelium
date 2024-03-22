@@ -14,8 +14,11 @@ import com.hotelium.limbo.model.User;
 import com.hotelium.limbo.repository.UserRepository;
 import com.hotelium.limbo.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping(path = "/users")
+@Tag(name = "Users", description = "Users management endpoints")
 // @SecurityRequirement(name = "Authorization")
 public class UserController extends GenericController<User, Long, UserRequestDTO> {
     public UserController(UserService service) {

@@ -10,8 +10,16 @@ import com.hotelium.limbo.generic.GenericController;
 import com.hotelium.limbo.model.Booking;
 import com.hotelium.limbo.service.BookingService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @RestController
 @RequestMapping(path = "/bookings")
+@Tag(name = "Bookings", description = "The bookings endpoints")
 public class BookingController extends GenericController<Booking, Long, BookingRequestDTO> {
     public BookingController(BookingService service) {
         super(service);
@@ -21,6 +29,13 @@ public class BookingController extends GenericController<Booking, Long, BookingR
     private BookingService service;
 
     @PostMapping("/user/{userId}")
+    @Operation(summary = "Create a new booking for a user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "The booking was successfully created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Booking.class))),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
+    })
     public Booking createBooking(@PathVariable Long userId, @RequestBody BookingRequestDTO bookingDTO) {
         return service.createBookingTwo(userId, bookingDTO);
     }
