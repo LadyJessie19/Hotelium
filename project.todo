@@ -94,3 +94,8 @@ Next steps:
         API documentation: 
             ✔ Add to controllers Tag annotation; @done(24-03-22 17:45)
             ☐ Describe each endpoint;
+            ✔ Users; @done(24-03-25 12:51)
+            ✔ Hotels; @done(24-03-25 12:51)
+            ☐ Rooms;
+            ☐ Bookings;
+            ✔ Health; @done(24-03-25 12:51)
