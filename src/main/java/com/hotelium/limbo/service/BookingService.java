@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hotelium.limbo.dto.request.BookingRequestDTO;
 import com.hotelium.limbo.generic.GenericService;
 import com.hotelium.limbo.model.Booking;
@@ -17,6 +18,7 @@ import com.hotelium.limbo.repository.BookingRepository;
 import com.hotelium.limbo.repository.RoomRepository;
 import com.hotelium.limbo.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.persistence.EntityNotFoundException;
 
 import com.hotelium.limbo.mapper.BookingMapper;

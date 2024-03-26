@@ -19,7 +19,7 @@ public class GenericController<T, ID, D> {
     }
 
     @GetMapping
-    @Operation(summary = "Get all entities")
+    @Operation(summary = "Generic OP - Get all entities")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The list of entities was successfully retrieved", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
@@ -29,7 +29,7 @@ public class GenericController<T, ID, D> {
     }
 
     @PostMapping
-    @Operation(summary = "Create a new entity")
+    @Operation(summary = "Generic OP - Create a new entity")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "The entity was successfully created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))),
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
@@ -40,7 +40,7 @@ public class GenericController<T, ID, D> {
     }
 
     @GetMapping("/dto/{id}")
-    @Operation(summary = "Find entity by ID with DTO")
+    @Operation(summary = "Generic OP - Find entity by ID with DTO")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The entity was successfully retrieved", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Optional.class))),
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
@@ -51,7 +51,7 @@ public class GenericController<T, ID, D> {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Find entity by ID")
+    @Operation(summary = "Generic OP - Find entity by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The entity was successfully retrieved", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Optional.class))),
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
@@ -62,7 +62,7 @@ public class GenericController<T, ID, D> {
     }
 
     @PatchMapping("/{id}")
-    @Operation(summary = "Update entity by ID")
+    @Operation(summary = "Generic OP - Update entity by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The entity was successfully updated", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Optional.class))),
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
@@ -72,7 +72,7 @@ public class GenericController<T, ID, D> {
         return service.update(id, body);
     }
 
-    @Operation(summary = "Delete entity by ID")
+    @Operation(summary = "Generic OP - Delete entity by ID")
     @DeleteMapping("/{id}")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The entity was successfully deleted", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),

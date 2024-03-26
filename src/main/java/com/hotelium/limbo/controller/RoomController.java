@@ -20,6 +20,11 @@ import com.hotelium.limbo.generic.GenericController;
 import com.hotelium.limbo.model.Room;
 import com.hotelium.limbo.service.RoomService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -34,18 +39,35 @@ public class RoomController extends GenericController<Room, Long, RoomRequestDTO
     private RoomService service;
 
     @PostMapping("/create/{hotelId}")
+    @Operation(summary = "Create a new room for a hotel")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Room created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Room.class))),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<Room> createRoom(@PathVariable Long hotelId, @RequestBody Room room) {
         Room createdRoom = service.createRoom(hotelId, room);
         return new ResponseEntity<>(createdRoom, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove/{id}")
+    @Operation(summary = "Delete a room by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room deleted successfully", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "404", description = "Room not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
+    })
     public ResponseEntity<String> deleteRoom(@PathVariable Long id) {
         service.deleteRoom(id);
         return new ResponseEntity<>("Room deleted successfully", HttpStatus.OK);
     }
 
     @GetMapping("/availability/{id}")
+    @Operation(summary = "Check room availability")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Room availability status", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Boolean.class))),
+            @ApiResponse(responseCode = "404", description = "Room not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
+    })
     public boolean checkAvailability(@PathVariable Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkIn,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date checkOut) {

@@ -89,13 +89,22 @@ Next steps:
 
     Spring Security:
         ☐ Spring Security - User login - Auth;
+            ☐ Continue with this video -> https://www.youtube.com/watch?v=5w-YCcOjPD0;
+                ✔ Install dependencies; @done(24-03-26 13:26)
+                ☐ Model User Entity;
     
     Swagger Docs:
         API documentation: 
             ✔ Add to controllers Tag annotation; @done(24-03-22 17:45)
-            ☐ Describe each endpoint;
+            ✔ Describe each endpoint; @done(24-03-26 12:59)
             ✔ Users; @done(24-03-25 12:51)
             ✔ Hotels; @done(24-03-25 12:51)
-            ☐ Rooms;
-            ☐ Bookings;
+            ✔ Rooms; @done(24-03-26 12:59)
+            ✔ Bookings; @done(24-03-26 12:59)
             ✔ Health; @done(24-03-25 12:51)
+        Routes:
+            ☐ Organize routes to swagger - each entity with your own feature!
+                ☐ Users;
+                ☐ Hotels;
+                ☐ Rooms;
+                ☐ Bookings;
