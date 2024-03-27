@@ -12,7 +12,7 @@ import com.hotelium.limbo.model.User;
 import com.hotelium.limbo.repository.UserRepository;
 
 @Service
-public class UserService extends GenericService<User, Long, UserRequestDTO> {
+public class UserService extends GenericService<User, String, UserRequestDTO> {
     public UserService(UserRepository repository, UserMapper mapper) {
         super(repository, mapper, User.class, UserRequestDTO.class);
     }

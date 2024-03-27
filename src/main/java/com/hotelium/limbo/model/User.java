@@ -1,17 +1,25 @@
 package com.hotelium.limbo.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.hotelium.limbo.enums.UserRoleEnum;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +35,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Setter
     @Column
@@ -47,11 +58,8 @@ public class User {
 
     @Setter
     @Column
-    private String profile = "user";
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    private Long id;
+    @Enumerated(EnumType.STRING)
+    private UserRoleEnum role = UserRoleEnum.USER;
 
     @Column
     @CreationTimestamp
@@ -70,4 +78,37 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<Booking> bookings = new HashSet<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRoleEnum.ADMIN)
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

@@ -61,7 +61,7 @@ public class BookingService extends GenericService<Booking, Long, BookingRequest
         }
     }
 
-    public Booking createBookingTwo(Long userId, BookingRequestDTO bookingDto) {
+    public Booking createBookingTwo(String userId, BookingRequestDTO bookingDto) {
 
         this.validateBookingDTO(bookingDto);
 

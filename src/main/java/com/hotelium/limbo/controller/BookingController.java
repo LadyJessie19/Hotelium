@@ -37,7 +37,7 @@ public class BookingController extends GenericController<Booking, Long, BookingR
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public Booking createBooking(@PathVariable Long userId, @RequestBody BookingRequestDTO bookingDTO) {
+    public Booking createBooking(@PathVariable String userId, @RequestBody BookingRequestDTO bookingDTO) {
         return service.createBookingTwo(userId, bookingDTO);
     }
 
