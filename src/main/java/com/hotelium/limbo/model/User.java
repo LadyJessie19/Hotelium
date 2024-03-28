@@ -45,11 +45,7 @@ public class User implements UserDetails {
     private String name;
 
     @Setter
-    @Column
-    private String email;
-
-    @Setter
-    @Column
+    @Column(nullable = false, unique = true)
     private String login;
 
     @Setter
@@ -89,7 +85,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return this.login;
     }
 
     @Override

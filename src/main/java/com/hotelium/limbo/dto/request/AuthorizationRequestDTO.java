@@ -1,10 +1,8 @@
 package com.hotelium.limbo.dto.request;
 
-import com.hotelium.limbo.enums.UserRoleEnum;
-
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,22 +10,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserRequestDTO {
+@AllArgsConstructor
+public class AuthorizationRequestDTO {
+    @Email
     @NotEmpty
-    @NotNull
-    private String name;
-
-    @NotEmpty
-    @NotNull
     private String login;
 
     @NotEmpty
-    @NotNull
+    @Size(min = 8, max = 20)
     private String password;
-
-    @NotEmpty
-    @NotNull
-    private UserRoleEnum role;
 }

@@ -1,7 +1,6 @@
 package com.hotelium.limbo.dto.request;
 
 import com.hotelium.limbo.enums.RoomTypeEnum;
-import com.hotelium.limbo.model.Hotel;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

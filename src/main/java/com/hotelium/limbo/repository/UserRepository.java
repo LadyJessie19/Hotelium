@@ -1,6 +1,7 @@
 package com.hotelium.limbo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import com.hotelium.limbo.model.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
-    User getUserByLogin(String login);
+    Optional<User> getUserByLogin(String login);
 
     UserDetails findByLogin(String login);
 

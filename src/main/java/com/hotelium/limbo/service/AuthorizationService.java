@@ -10,7 +10,6 @@ import com.hotelium.limbo.repository.UserRepository;
 
 @Service
 public class AuthorizationService implements UserDetailsService {
-
     @Autowired
     private UserRepository repository;
 
