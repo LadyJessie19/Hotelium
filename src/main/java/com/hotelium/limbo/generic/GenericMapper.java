@@ -22,4 +22,8 @@ public class GenericMapper<E, D> {
     public void updateEntityFromDto(E entity, D dto) {
         modelMapper.map(dto, entity);
     }
+
+    public void dtoToEntityFull(D dto, E entity) {
+        modelMapper.map(dto, entity);
+    }
 }

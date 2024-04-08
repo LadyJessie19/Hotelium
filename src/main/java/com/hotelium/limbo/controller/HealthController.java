@@ -12,15 +12,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping(path = "/health")
-@Tag(name = "Health", description = "Health Check")
+@RequestMapping(path = "/")
+@Tag(name = "Home", description = "Health Check and home endpoint")
 public class HealthController {
-    @GetMapping()
+    @GetMapping("/health")
     @Operation(summary = "Health Check")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Health check was successful", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))) })
     public String health() {
         return "THE DATABASE REQUESTS ARE OK. NOICE JOB TO YOU!";
+    }
+
+    @GetMapping
+    @Operation(summary = "Home")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Health check was successful", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))) })
+    public String home() {
+        return "Hi! This is the home page. How are you doing?";
     }
 }

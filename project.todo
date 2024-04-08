@@ -88,10 +88,11 @@ Next steps:
     ---------------- Project 3/4 is done! ----------------
 
     Spring Security:
-        ☐ Spring Security - User login - Auth;
-            ☐ Continue with this video -> https://www.youtube.com/watch?v=5w-YCcOjPD0;
+        ✔ Spring Security - User login - Auth; @done(24-04-08 12:30)
+            ✔ Continue with this video -> https://www.youtube.com/watch?v=5w-YCcOjPD0; @done(24-04-08 12:30)
                 ✔ Install dependencies; @done(24-03-26 13:26)
-                ☐ Model User Entity;
+                ✔ Model User Entity; @done(24-04-08 12:30)
+                ✔ Finished! Auth implemented! @done(24-04-08 12:30)
     
     Swagger Docs:
         API documentation: 
@@ -108,3 +109,11 @@ Next steps:
                 ☐ Hotels;
                 ☐ Rooms;
                 ☐ Bookings;
+    
+    Deploys:
+        ☐ Github repository;
+        ☐ Railway;
+        ☐ Link to swagger;
+        ☐ Insomnia archive;
+        ☐ Readme;
+        ☐ ToDo file;

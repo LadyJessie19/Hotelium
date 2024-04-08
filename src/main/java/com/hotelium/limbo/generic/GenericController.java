@@ -1,15 +1,25 @@
 package com.hotelium.limbo.generic;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class GenericController<T, ID, D> {
     private final GenericService<T, ID, D> service;
@@ -24,8 +34,15 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "200", description = "The list of entities was successfully retrieved", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public List<T> findAll() {
-        return service.findAll();
+    public ResponseEntity<Page<T>> findAll(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<T> result = service.findAll(pageable);
+        System.out.println(result);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping
@@ -35,19 +52,23 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "400", description = "Bad request", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public D create(@RequestBody D requestDTO) {
-        return service.create(requestDTO);
-    }
+    public ResponseEntity<D> create(@RequestBody D requestDTO) {
 
-    @GetMapping("/dto/{id}")
-    @Operation(summary = "Generic OP - Find entity by ID with DTO")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The entity was successfully retrieved", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Optional.class))),
-            @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
-            @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
-    })
-    public Optional<D> findByIdWithDTO(@PathVariable ID id) {
-        return service.findByIdWithDTO(id);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<D>> violations = validator.validate(requestDTO);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<D> violation : violations) {
+                System.out.println("ERROR: " + violation.getMessage());
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        D entity = service.create(requestDTO);
+
+        return new ResponseEntity<>(entity, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -57,11 +78,18 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public Optional<T> findById(@PathVariable ID id) {
-        return service.findById(id);
+    public ResponseEntity<?> findById(@PathVariable ID id) {
+        Optional<T> entity = service.findById(id);
+        if (entity != null && entity.isPresent()) {
+            return ResponseEntity.ok(entity.get());
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Entidade com o ID " + id + " não encontrada.");
+        }
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @Operation(summary = "Generic OP - Update entity by ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The entity was successfully updated", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Optional.class))),

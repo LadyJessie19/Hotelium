@@ -1,11 +1,12 @@
 package com.hotelium.limbo.generic;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 public class GenericService<T, ID, D> {
@@ -22,8 +23,8 @@ public class GenericService<T, ID, D> {
         this.DTOtype = DTOtype;
     }
 
-    public List<T> findAll() {
-        return repository.findAll();
+    public Page<T> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public D create(D requestDTO) {
@@ -33,24 +34,12 @@ public class GenericService<T, ID, D> {
         return savedEntityDTO;
     }
 
-    public Optional<D> findByIdWithDTO(ID id) {
-        Optional<T> entityOptional = repository.findById(id);
-
-        if (entityOptional.isPresent()) {
-            T entity = entityOptional.get();
-            D foundEntity = mapper.entityToDto(entity, DTOtype);
-            return Optional.of(foundEntity);
-        } else {
-            return Optional.empty();
-        }
-    }
-
     public Optional<T> findById(ID id) {
         Optional<T> entity = repository.findById(id);
         if (entity.isPresent()) {
             return entity;
         }
-        return null;
+        return Optional.empty();
     }
 
     @Transactional
@@ -62,9 +51,9 @@ public class GenericService<T, ID, D> {
             Optional<T> existingEntityOptional = repository.findById(id);
 
             if (existingEntityOptional.isPresent()) {
-                T existingEntity = existingEntityOptional.get();
+                mapper.dtoToEntityFull(requestDTO, existingEntityOptional.get());
 
-                T updatedEntity = repository.save(existingEntity);
+                T updatedEntity = repository.saveAndFlush(existingEntityOptional.get());
 
                 return Optional.of(mapper.entityToDto(updatedEntity, DTOtype));
             }
@@ -73,25 +62,6 @@ public class GenericService<T, ID, D> {
         }
         return Optional.empty();
     }
-
-    /*
-     * 
-     * @Transactional(rollbackFor = Exception.class)
-     * public ResponseDTO update(Integer id, RequestDTO requestDTO) {
-     * Optional<Entity> dbOptional = repository.findById(id);
-     * if (dbOptional.isEmpty()) {
-     * throw new EntityException("Entity not found.");
-     * }
-     * 
-     * Entity entity = dbOptional.get();
-     * this.overridePropertyOnUpdateForDTO(requestDTO);
-     * genericRestMapper.updateEntityFromDto(requestDTO, entity);
-     * this.overridePropertyOnUpdateForEntity(entity);
-     * repository.saveAndFlush(entity);
-     * return genericRestMapper.toDTO(entity);
-     * }
-     * 
-     */
 
     public void delete(ID id) {
         Optional<T> entity = repository.findById(id);

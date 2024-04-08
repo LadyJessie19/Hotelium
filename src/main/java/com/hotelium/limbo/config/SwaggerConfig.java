@@ -20,8 +20,10 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI openAPI() {
-        return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Header Authorization"))
-                .components(new Components().addSecuritySchemes("Authorization", createAPIKeyScheme()))
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("Header Authorization"))
+                .components(new Components().addSecuritySchemes("Authorization",
+                        createAPIKeyScheme()))
                 .info(new Info().title("Hotelium API - Booking Reservation Manager")
                         .description("Hotelium API - Booking Reservation Manager")
                         .version("1.1")
