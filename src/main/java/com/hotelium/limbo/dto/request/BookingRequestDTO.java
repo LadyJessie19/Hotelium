@@ -32,11 +32,6 @@ public class BookingRequestDTO {
     @NotEmpty
     private Date checkOut;
 
-    @JsonProperty("userId")
-    @NotNull
-    @NotEmpty
-    private Long userId;
-
     @JsonProperty("roomIds")
     @NotNull
     @NotEmpty

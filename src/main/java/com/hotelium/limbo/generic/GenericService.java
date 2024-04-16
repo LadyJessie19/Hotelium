@@ -4,23 +4,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 import java.util.Optional;
 
-public class GenericService<T, ID, D> {
+public class GenericService<T, ID, D, R> {
     private final JpaRepository<T, ID> repository;
-    private final GenericMapper<T, D> mapper;
+    private final GenericMapper<T, D, R> mapper;
     private final Class<T> EntityType;
     private final Class<D> DTOtype;
+    private final Class<R> ResponseType;
 
-    public GenericService(JpaRepository<T, ID> repository, GenericMapper<T, D> mapper, Class<T> EntityType,
-            Class<D> DTOtype) {
+    public GenericService(JpaRepository<T, ID> repository, GenericMapper<T, D, R> mapper, Class<T> EntityType,
+            Class<D> DTOtype, Class<R> ResponseType) {
         this.repository = repository;
         this.mapper = mapper;
         this.EntityType = EntityType;
         this.DTOtype = DTOtype;
+        this.ResponseType = ResponseType;
     }
 
     public Page<T> findAll(Pageable pageable) {
@@ -34,10 +35,12 @@ public class GenericService<T, ID, D> {
         return savedEntityDTO;
     }
 
-    public Optional<T> findById(ID id) {
-        Optional<T> entity = repository.findById(id);
-        if (entity.isPresent()) {
-            return entity;
+    public Optional<R> findById(ID id) {
+        Optional<T> found = repository.findById(id);
+
+        if (found.isPresent()) {
+            R entity = mapper.entityToDtoFull(found.get(), ResponseType);
+            return Optional.of(entity);
         }
         return Optional.empty();
     }
@@ -63,12 +66,13 @@ public class GenericService<T, ID, D> {
         return Optional.empty();
     }
 
-    public void delete(ID id) {
+    public Boolean delete(ID id) {
         Optional<T> entity = repository.findById(id);
         if (entity.isPresent()) {
             repository.deleteById(id);
+            return true;
         } else {
-            throw new EntityNotFoundException(EntityType.getSimpleName() + " not found with id " + id);
+            return false;
         }
     }
 }

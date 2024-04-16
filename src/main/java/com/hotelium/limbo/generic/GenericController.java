@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class GenericController<T, ID, D> {
-    private final GenericService<T, ID, D> service;
+public class GenericController<T, ID, D, R> {
+    private final GenericService<T, ID, D, R> service;
 
-    public GenericController(GenericService<T, ID, D> service) {
+    public GenericController(GenericService<T, ID, D, R> service) {
         this.service = service;
     }
 
@@ -40,7 +40,6 @@ public class GenericController<T, ID, D> {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<T> result = service.findAll(pageable);
-        System.out.println(result);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -79,7 +78,7 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
     public ResponseEntity<?> findById(@PathVariable ID id) {
-        Optional<T> entity = service.findById(id);
+        Optional<R> entity = service.findById(id);
         if (entity != null && entity.isPresent()) {
             return ResponseEntity.ok(entity.get());
         } else {
@@ -96,8 +95,41 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public Optional<D> update(@PathVariable ID id, @RequestBody D body) {
-        return service.update(id, body);
+    public ResponseEntity<?> update(@PathVariable ID id, @RequestBody D body) {
+
+        if (service.findById(id) == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Entidade com o ID " + id + " não encontrada.");
+        }
+
+        if (body == null) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Corpo da requisição é obrigatório.");
+        }
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<D>> violations = validator.validate(body);
+
+        if (!violations.isEmpty()) {
+            for (ConstraintViolation<D> violation : violations) {
+                System.out.println("ERROR: " + violation.getMessage());
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Optional<D> entity = service.update(id, body);
+
+        if (entity != null && entity.isPresent()) {
+            return ResponseEntity.ok(entity.get());
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Entidade com o ID " + id + " não encontrada para o update.");
+        }
     }
 
     @Operation(summary = "Generic OP - Delete entity by ID")
@@ -107,8 +139,22 @@ public class GenericController<T, ID, D> {
             @ApiResponse(responseCode = "404", description = "Entity not found", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "text/plain", schema = @Schema(implementation = String.class)))
     })
-    public String delete(@PathVariable ID id) {
-        service.delete(id);
-        return "The entity was successfully deleted";
+    public ResponseEntity<?> delete(@PathVariable ID id) {
+
+        if (service.findById(id) == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Entidade com o ID " + id + " não encontrada.");
+        }
+
+        Boolean deleted = service.delete(id);
+
+        if (deleted) {
+            return ResponseEntity.ok("Entidade com o ID " + id + " foi excluída com sucesso.");
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Entidade com o ID " + id + " não encontrada para o delete.");
+        }
     }
 }

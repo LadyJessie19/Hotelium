@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotelium.limbo.dto.request.RoomRequestDTO;
+import com.hotelium.limbo.dto.response.RoomResponseDTO;
 import com.hotelium.limbo.generic.GenericService;
 import com.hotelium.limbo.mapper.RoomMapper;
 import com.hotelium.limbo.model.Booking;
@@ -20,9 +21,9 @@ import com.hotelium.limbo.repository.RoomRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class RoomService extends GenericService<Room, Long, RoomRequestDTO> {
+public class RoomService extends GenericService<Room, Long, RoomRequestDTO, RoomResponseDTO> {
     public RoomService(RoomRepository repository, RoomMapper mapper) {
-        super(repository, mapper, Room.class, RoomRequestDTO.class);
+        super(repository, mapper, Room.class, RoomRequestDTO.class, RoomResponseDTO.class);
     }
 
     @Autowired
@@ -34,12 +35,16 @@ public class RoomService extends GenericService<Room, Long, RoomRequestDTO> {
     @Autowired
     private BookingRepository bookingRepository;
 
-    public Room createRoom(Long hotelId, Room room) {
+    @Autowired
+    private RoomMapper mapper;
+
+    public Room createRoom(Long hotelId, RoomRequestDTO room) {
         Optional<Hotel> hotel = hotelRepository.findById(hotelId);
 
         if (hotel.isPresent()) {
             room.setHotel(hotel.get());
-            return repository.save(room);
+            Room newRoom = mapper.dtoToEntity(room, Room.class);
+            return repository.save(newRoom);
         } else {
             throw new EntityNotFoundException("Hotel not found");
         }

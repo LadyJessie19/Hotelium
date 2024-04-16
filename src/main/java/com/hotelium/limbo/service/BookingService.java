@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hotelium.limbo.dto.request.BookingRequestDTO;
+import com.hotelium.limbo.dto.response.BookingResponseDTO;
 import com.hotelium.limbo.generic.GenericService;
 import com.hotelium.limbo.model.Booking;
 import com.hotelium.limbo.model.Room;
@@ -22,10 +23,10 @@ import jakarta.persistence.EntityNotFoundException;
 import com.hotelium.limbo.mapper.BookingMapper;
 
 @Service
-public class BookingService extends GenericService<Booking, Long, BookingRequestDTO> {
+public class BookingService extends GenericService<Booking, Long, BookingRequestDTO, BookingResponseDTO> {
 
     public BookingService(BookingRepository repository, BookingMapper mapper) {
-        super(repository, mapper, Booking.class, BookingRequestDTO.class);
+        super(repository, mapper, Booking.class, BookingRequestDTO.class, BookingResponseDTO.class);
     }
 
     @Autowired
