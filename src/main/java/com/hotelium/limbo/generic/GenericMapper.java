@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.modelmapper.ModelMapper;
 
 @Mapper(componentModel = "spring")
-public class GenericMapper<E, D> {
+public class GenericMapper<E, D, R> {
     private final ModelMapper modelMapper;
 
     public GenericMapper(ModelMapper modelMapper) {
@@ -25,5 +25,9 @@ public class GenericMapper<E, D> {
 
     public void dtoToEntityFull(D dto, E entity) {
         modelMapper.map(dto, entity);
+    }
+
+    public R entityToDtoFull(E e, Class<R> dto) {
+        return modelMapper.map(e, dto);
     }
 }

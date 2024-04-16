@@ -4,11 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.hotelium.limbo.dto.request.CreateUserDTO;
+import com.hotelium.limbo.dto.response.UserResponseDTO;
 import com.hotelium.limbo.generic.GenericMapper;
 import com.hotelium.limbo.model.User;
 
 @Component
-public class UserMapper extends GenericMapper<User, CreateUserDTO> {
+public class UserMapper extends GenericMapper<User, CreateUserDTO, UserResponseDTO> {
     public UserMapper(ModelMapper mapper) {
         super(mapper);
     }

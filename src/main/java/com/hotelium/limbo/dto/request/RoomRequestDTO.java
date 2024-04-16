@@ -1,8 +1,8 @@
 package com.hotelium.limbo.dto.request;
 
 import com.hotelium.limbo.enums.RoomTypeEnum;
+import com.hotelium.limbo.model.Hotel;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,25 +14,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomRequestDTO {
-    @NotEmpty
     @NotNull
-    private Long roomNumber;
+    private int roomNumber;
 
-    @NotEmpty
     @NotNull
     private String description;
 
-    @NotEmpty
     @NotNull
     private RoomTypeEnum roomType;
 
-    @NotEmpty
     @NotNull
-    private Long coastHour;
+    private int coastHour;
 
-    @NotEmpty
     @NotNull
     private Boolean availability;
+
+    private Hotel hotel;
 
     @Override
     public String toString() {

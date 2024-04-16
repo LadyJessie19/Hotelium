@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.hotelium.limbo.dto.request.BookingRequestDTO;
+import com.hotelium.limbo.dto.response.BookingResponseDTO;
 import com.hotelium.limbo.generic.GenericController;
 import com.hotelium.limbo.model.Booking;
 import com.hotelium.limbo.service.BookingService;
@@ -21,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @RestController
 @RequestMapping(path = "/bookings")
 @Tag(name = "Bookings", description = "The bookings endpoints")
-public class BookingController extends GenericController<Booking, Long, BookingRequestDTO> {
+public class BookingController extends GenericController<Booking, Long, BookingRequestDTO, BookingResponseDTO> {
     public BookingController(BookingService service) {
         super(service);
     }
@@ -72,11 +73,5 @@ public class BookingController extends GenericController<Booking, Long, BookingR
     public List<Booking> getBookingsByUser(@PathVariable Long userId,
             @RequestParam(required = false) Boolean isCanceled) {
         return service.findBookingsByUserAndStatus(userId, isCanceled);
-    }
-
-    @Override
-    @Operation(hidden = true)
-    public String delete(@PathVariable Long id) {
-        return "";
     }
 }

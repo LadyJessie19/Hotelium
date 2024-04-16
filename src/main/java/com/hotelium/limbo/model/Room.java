@@ -42,7 +42,7 @@ public class Room implements Serializable {
 
     @Setter
     @Column
-    private Long roomNumber;
+    private int roomNumber;
 
     @Setter
     @Column
@@ -55,7 +55,7 @@ public class Room implements Serializable {
 
     @Setter
     @Column
-    private Long coastHour;
+    private int coastHour;
 
     @Setter
     @Column
