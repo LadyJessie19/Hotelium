@@ -34,7 +34,7 @@ Hotelium is a comprehensive solution designed to simplify the management of hote
 
 ## Project Entities 📚
 
-<img src="./assets/images/hotelium-diagram.png" alt="diagram-hotelium" />
+<img src="./assets/images/hotelium-diagram.png" alt="diagram-hotelium" width="800" />
 
 ## Development Stages 🛠️
 
@@ -44,7 +44,7 @@ Development followed clear stages from environment setup to final documentation.
 
 The [`postman-hotelium.json`](./assets/postman/postman-hotelium.json) file in the project contains all configured routes. You can import this file into Postman and start using the routes without manually exploring the code. Additionally, JSON bodies for tests are already saved in the files.
 
-## About Swagger 📜
+## About Swagger 🪂
 
 Swagger provides a user-friendly interface to explore and test the API endpoints. You can access the Swagger UI at [Hotelium Swagger](https://hotelium.up.railway.app/swagger-ui/index.html).
 
