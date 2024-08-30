@@ -2,7 +2,7 @@
 
 ## Hotel booking manager
 
-<img src="./assets/images/hotelium.png" alt="Hotelium" width="500" height="300" />
+<img src="./assets/images/hotelium.png" alt="Hotelium" width="400" />
 
 ### Hotelium is a hotel booking manager that allows users to create accounts, search for hotels, view hotel details, and make reservations.
 
@@ -44,7 +44,7 @@ Development followed clear stages from environment setup to final documentation.
 
 The [`postman-hotelium.json`](./assets/postman/postman-hotelium.json) file in the project contains all configured routes. You can import this file into Postman and start using the routes without manually exploring the code. Additionally, JSON bodies for tests are already saved in the files.
 
-## About Swagger
+## About Swagger 📜
 
 Swagger provides a user-friendly interface to explore and test the API endpoints. You can access the Swagger UI at [Hotelium Swagger](https://hotelium.up.railway.app/swagger-ui/index.html).
 
@@ -54,14 +54,18 @@ Spring Security is a powerful and flexible framework that focuses on authenticat
 
 In Hotelium, Spring Security is integrated to handle user login, protecting the application against unauthorized access. It provides a robust security layer that includes features like password encryption, token-based authentication, and protection against common vulnerabilities.
 
-For testing purposes, you can use the following credentials:
+For testing purposes, you can use the following credentials at `{{base_url}}/auth` route:
 
-- **Email:** email@email.com
-- **Password:** hotelium
+```json
+{
+   "email": "email@email.com",
+   "password": "hotelium"
+}
+```
 
 ## Railway Deployment Notice ⚠️
 
-Please note that Railway may be deactivated due to inactivity. If this happens, you may need to clone the repository to your machine and connect to the database locally.
+Please note that Railway may be deactivated due to inactivity or other technical reasons. If this happens, you may need to clone the repository to your machine and connect to the database locally.
 
 ## Installing the Project 🛠️
 
@@ -90,7 +94,7 @@ This will start the application on the default port, typically `8080`.
 2. Create a new environment in Postman.
 3. Set the environment variable `base_url` with the server address:
 
-   - If running locally, the `base_url` will be `http://localhost:<selected_port>`.
+   - If running locally, the `base_url` will be `http://localhost:8080`.
    - If running on Railway, the `base_url` will be `https://hotelium.up.railway.app`.
    - **Note**: I prefer not to include the "/" at the end of the `base_url` variable, so I add it manually in each route.
 
@@ -101,11 +105,11 @@ This will start the application on the default port, typically `8080`.
    ```json
    {
      "email": "email@email.com",
-     "password": "password"
+     "password": "hotelium"
    }
    ```
 
-- **Note**: All of this is already saved in the Postman import file. Just run the request to `{{base_url}}/auth` for the `token` variable to be updated automatically. Oh, and all requests are already configured with `Bearer Token` in the _Authorization_ tab. 🥳
+- **Note**: All of this is already saved in the Postman import file. Just run the request to `{{base_url}}/auth` for the `token` variable to be updated automatically. Oh, and all requests are already configured with `Token` in the _Authorization_ headers configuration. 🥳
 
 Ready! Now you can test the routes and access the files. 😉
 
